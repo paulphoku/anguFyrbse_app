@@ -10,7 +10,13 @@ import { HomeComponent } from './home/home.component';
 import { RegisterComponent } from './register/register.component';
 import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
-import {ApisService} from './apis.service';
+import { ApisService } from './apis.service';
+
+//firebase
+import { AngularFireModule } from '@angular/fire';
+import { AngularFirestoreModule } from '@angular/fire/firestore';
+import { environment } from '../environments/environment';
+
 
 @NgModule({
   declarations: [
@@ -25,7 +31,9 @@ import {ApisService} from './apis.service';
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
-    FormsModule
+    FormsModule,
+    AngularFireModule.initializeApp(environment.firebaseConfig),
+ 	AngularFirestoreModule,
   ],
   providers: [ApisService],
   bootstrap: [AppComponent]
