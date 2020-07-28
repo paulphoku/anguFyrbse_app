@@ -4,6 +4,7 @@ import { from } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { phoneNumberValidator } from '../validators/phone-validator'
 import { Router, RouterModule } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 
 @Component({
@@ -18,7 +19,8 @@ export class RegisterComponent implements OnInit {
   constructor(
     private fb: FormBuilder,
     private apis: ApisService,
-    private router: Router
+    private router: Router,
+    private toastr: ToastrService
   ) { }
 
   ngOnInit(): void {
@@ -63,6 +65,7 @@ export class RegisterComponent implements OnInit {
         data => {
           if (data == 200) {
             console.log(data);
+            this.toastr.success('User Created');
             this.router.navigate(['/Home']);
           } else {
             this.setError = data.message
