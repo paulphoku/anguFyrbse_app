@@ -3,6 +3,7 @@ import { ApisService } from '../apis.service'
 import { from } from 'rxjs';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { phoneNumberValidator } from '../validators/phone-validator'
+import { Router, RouterModule } from '@angular/router';
 
 @Component({
   selector: 'app-register',
@@ -14,14 +15,16 @@ export class RegisterComponent implements OnInit {
   regForm: FormGroup; submitted = false; setError: string;
 
   constructor(
-    private fb: FormBuilder
+    private fb: FormBuilder,
+    private apis: ApisService,
+    private router: Router
   ) { }
 
   ngOnInit(): void {
     this.regForm = this.fb.group({
       usr_fname: ['', Validators.required],
       usr_lname: ['', Validators.required],
-      usr_tel: ['', Validators.required], phoneNumberValidator,
+      usr_tel: ['', Validators.required, phoneNumberValidator],
     });
   }
 
@@ -40,19 +43,17 @@ export class RegisterComponent implements OnInit {
     return this.regForm.get('usr_lname');
   }
 
-
   register() {
-    console.log('First Name', this.regForm.value.usr_fname);
-    console.log('Last Name', this.regForm.value.usr_lname);
-    console.log('Tel', this.regForm.value.usr_tel);
-
-    if (this.regForm.value.usr_fname && this.regForm.value.usr_lname && this.regForm.value.usr_tel) {
-      if (this.regForm.value.usr_fname >= 2) {
-        console.log("valid");
-      } else {
-        console.log("min length is two max is 50");
+    let data = this.regForm.value;
+    
+    this.apis.createUser(data)
+    .then(
+      res => {
+        this.regForm.reset();
+        console.log("data saved");
+        this.router.navigate(['/home']);
       }
-    }
+    )
   }
 
   revert() {

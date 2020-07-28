@@ -12,10 +12,12 @@ import { NavComponent } from './nav/nav.component';
 import { FooterComponent } from './footer/footer.component';
 import { ApisService } from './apis.service';
 
+//environment import
+import { environment } from "src/environments/environment";
+
 //firebase
 import { AngularFireModule } from '@angular/fire';
 import { AngularFirestoreModule } from '@angular/fire/firestore';
-import { environment } from '../environments/environment';
 
 
 @NgModule({
@@ -33,7 +35,7 @@ import { environment } from '../environments/environment';
     HttpClientModule,
     FormsModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
- 	AngularFirestoreModule,
+    AngularFirestoreModule,
   ],
   providers: [ApisService],
   bootstrap: [AppComponent]

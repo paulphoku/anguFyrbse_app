@@ -5,14 +5,14 @@
 export const environment = {
   production: false,
   firebaseConfig : {
-    apiKey: "AIzaSyA6o8eXg8DW6F2A9DASejmaliOD08Bp3-0",
-    authDomain: "angufyrbse-app.firebaseapp.com",
-    databaseURL: "https://angufyrbse-app.firebaseio.com",
-    projectId: "angufyrbse-app",
-    storageBucket: "angufyrbse-app.appspot.com",
-    messagingSenderId: "191218578913",
-    appId: "1:191218578913:web:43464e9044c01fe2500ea0",
-    measurementId: "G-8362D6QC8P"
+    apiKey: "AIzaSyA33knB8mXn_B2t8wipGY5ht5hkC1YmRX0",
+    authDomain: "angufyrbse-app-4e675.firebaseapp.com",
+    databaseURL: "https://angufyrbse-app-4e675.firebaseio.com",
+    projectId: "angufyrbse-app-4e675",
+    storageBucket: "angufyrbse-app-4e675.appspot.com",
+    messagingSenderId: "889302759006",
+    appId: "1:889302759006:web:b39dac08c8c3219be966cf",
+    measurementId: "G-ERSS5X82EG"
   }
 };
 

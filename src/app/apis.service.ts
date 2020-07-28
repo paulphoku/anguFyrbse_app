@@ -1,22 +1,23 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders, HttpErrorResponse } from '@angular/common/http';
+import { AngularFirestore } from '@angular/fire/firestore';
+
 @Injectable({
   providedIn: 'root'
 })
 export class ApisService {
-  _Url = 'https://ems-b.herokuapp.com/';
+  constructor(private http : HttpClient, private firestore: AngularFirestore) { }
 
   //register user
-  register(password, id , name, email){
-    return this.http.post<any>(
-      this._Url + 'register', 
-      {
-        password, id, name, email
-      }
-    )
+  createUser(data){
+    return new Promise<any>((resolve, reject) => {
+      this.firestore
+        .collection("users")
+        .add({
+          usr_fname: data.usr_fname,
+          usr_lname: data.usr_lname,
+          usr_tel: data.usr_tel})
+        .then(res => {}, err => reject(err));
+    });
   }
-
-  
-
-  constructor(private http : HttpClient) { }
 }
