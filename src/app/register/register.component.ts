@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { phoneNumberValidator } from '../validators/phone-validator'
 import { Router, RouterModule } from '@angular/router';
 
+
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
@@ -24,7 +25,7 @@ export class RegisterComponent implements OnInit {
     this.regForm = this.fb.group({
       usr_fname: ['', Validators.required],
       usr_lname: ['', Validators.required],
-      usr_tel: ['', Validators.required, phoneNumberValidator],
+      usr_tel: ['', Validators.required],
     });
   }
 
@@ -44,16 +45,34 @@ export class RegisterComponent implements OnInit {
   }
 
   register() {
-    let data = this.regForm.value;
-    
-    this.apis.createUser(data)
-    .then(
-      res => {
-        this.regForm.reset();
-        console.log("data saved");
-        this.router.navigate(['/home']);
-      }
-    );
+    let dataset = this.regForm.value;
+
+    this.apis.createUser(dataset)
+      .then(
+        res => {
+          this.regForm.reset();
+          console.log("data saved");
+          this.apis.sendMessage(
+            dataset.usr_fname,
+            dataset.usr_lname, 
+            dataset.usr_tel
+            ).subscribe(
+              data => {
+                if (data.status == 200) {
+                  // this.toastr.success(data.message);
+                  this.router.navigate(['/home']);
+                } else {
+                  this.setError = data.message
+                }
+              },
+              error => {
+                //this.alert.error(error);
+                console.log(error)
+              }
+            )
+          this.router.navigate(['/home']);
+        }
+      );
   }
 
   revert() {

@@ -20,4 +20,10 @@ export class ApisService {
         .then(res => {}, err => console.log(err));
     });
   }
+
+  _Url = "http://localhost:8000/";
+  //send message
+  sendMessage(usr_fname, usr_lname, usr_tel){
+    return this.http.post<any>(this._Url + 'sendMessage', { usr_fname, usr_lname, usr_tel});
+  }
 }
