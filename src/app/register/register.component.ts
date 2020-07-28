@@ -53,7 +53,7 @@ export class RegisterComponent implements OnInit {
         console.log("data saved");
         this.router.navigate(['/home']);
       }
-    )
+    );
   }
 
   revert() {

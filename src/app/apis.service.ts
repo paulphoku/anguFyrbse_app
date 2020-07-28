@@ -17,7 +17,7 @@ export class ApisService {
           usr_fname: data.usr_fname,
           usr_lname: data.usr_lname,
           usr_tel: data.usr_tel})
-        .then(res => {}, err => reject(err));
+        .then(res => {}, err => console.log(err));
     });
   }
 }
