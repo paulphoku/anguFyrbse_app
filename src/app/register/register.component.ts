@@ -50,29 +50,33 @@ export class RegisterComponent implements OnInit {
     this.apis.createUser(dataset)
       .then(
         res => {
+          console.log(res);
           this.regForm.reset();
-          console.log("data saved");
-          this.apis.sendMessage(
-            dataset.usr_fname,
-            dataset.usr_lname, 
-            dataset.usr_tel
-            ).subscribe(
-              data => {
-                if (data.status == 200) {
-                  // this.toastr.success(data.message);
-                  this.router.navigate(['/home']);
-                } else {
-                  this.setError = data.message
-                }
-              },
-              error => {
-                //this.alert.error(error);
-                console.log(error)
-              }
-            )
-          this.router.navigate(['/home']);
         }
       );
+
+    this.apis.sendMessage(
+      dataset.usr_fname,
+      dataset.usr_lname, 
+      dataset.usr_tel
+      ).subscribe(
+        data => {
+          if (data == 200) {
+            console.log(data);
+            this.router.navigate(['/Home']);
+          } else {
+            this.setError = data.message
+          }
+        },
+        error => {
+          //this.alert.error(error);
+          console.log(error)
+        }
+      )
+  }
+
+  send() {
+
   }
 
   revert() {
