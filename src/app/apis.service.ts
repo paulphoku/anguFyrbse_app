@@ -21,7 +21,9 @@ export class ApisService {
     });
   }
 
-  _Url = "http://localhost:8000/";
+  //_Url = "http://localhost:8000/";
+  _Url = "https://ngufyrbse-backend.herokuapp.com/"
+  
   //send message
   sendMessage(usr_fname, usr_lname, usr_tel){
     return this.http.post<any>(this._Url + 'sendMessage', { usr_fname, usr_lname, usr_tel});
