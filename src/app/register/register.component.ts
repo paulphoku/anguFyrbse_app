@@ -5,6 +5,7 @@ import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 import { phoneNumberValidator } from '../validators/phone-validator'
 import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { OneSignalService } from 'ngx-onesignal';
 
 
 @Component({
@@ -20,8 +21,19 @@ export class RegisterComponent implements OnInit {
     private fb: FormBuilder,
     private apis: ApisService,
     private router: Router,
-    private toastr: ToastrService
-  ) { }
+    private toastr: ToastrService,
+    public readonly onesignal: OneSignalService) {
+    // tslint:disable-next-line:no-angle-bracket-type-assertion
+    (<any>window).ngxOnesignal = onesignal;
+  }
+
+  onSubscribe() {
+    this.onesignal.subscribe();
+  }
+
+  onUnSubscribe() {
+    this.onesignal.unsubscribe();
+  }
 
   ngOnInit(): void {
     this.regForm = this.fb.group({
@@ -59,23 +71,23 @@ export class RegisterComponent implements OnInit {
 
     this.apis.sendMessage(
       dataset.usr_fname,
-      dataset.usr_lname, 
+      dataset.usr_lname,
       dataset.usr_tel
-      ).subscribe(
-        data => {
-          if (data == 200) {
-            console.log(data);
-            this.toastr.success('User Created');
-            this.router.navigate(['/Home']);
-          } else {
-            this.setError = data.message
-          }
-        },
-        error => {
-          //this.alert.error(error);
-          console.log(error)
+    ).subscribe(
+      data => {
+        if (data == 200) {
+          console.log(data);
+          this.toastr.success('User Created');
+          this.router.navigate(['/Home']);
+        } else {
+          this.setError = data.message
         }
-      )
+      },
+      error => {
+        //this.alert.error(error);
+        console.log(error)
+      }
+    )
   }
 
   send() {

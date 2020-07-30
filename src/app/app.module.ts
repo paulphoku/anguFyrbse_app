@@ -23,6 +23,12 @@ import { AngularFirestoreModule } from '@angular/fire/firestore';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { ToastrModule } from 'ngx-toastr';
 
+
+//onesignal
+import { NgxOneSignalModule } from 'ngx-onesignal';
+import { ServiceWorkerModule } from '@angular/service-worker';
+
+
 @NgModule({
   declarations: [
     AppComponent,
@@ -32,15 +38,24 @@ import { ToastrModule } from 'ngx-toastr';
     FooterComponent
   ],
   imports: [
-    BrowserModule,
+    BrowserModule.withServerTransition({ appId: 'serverApp' }),
     AppRoutingModule,
     ReactiveFormsModule,
     HttpClientModule,
     FormsModule,
-    AngularFireModule.initializeApp(environment.firebaseConfig),
+    AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
     BrowserAnimationsModule, // required animations module
-    ToastrModule.forRoot(), // ToastrModule added
+    ToastrModule.forRoot(),
+    ServiceWorkerModule.register('OneSignalSDKWorker.js', { enabled: environment.production }),
+    NgxOneSignalModule.forRoot({
+      appId: 'c28338f9-bdb6-4a00-93c8-882e73307d53',
+      allowLocalhostAsSecureOrigin: true,
+      autoRegister: false,
+      notifyButton: {
+        enabled: false,
+      },
+    }),
   ],
   providers: [ApisService],
   bootstrap: [AppComponent]
