@@ -7,7 +7,6 @@ import { Router, RouterModule } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { OneSignalService } from 'ngx-onesignal';
 
-
 @Component({
   selector: 'app-register',
   templateUrl: './register.component.html',
